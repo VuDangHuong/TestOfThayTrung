@@ -9,7 +9,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::orderBy('MaCategory', 'desc')->get();
+        $categories = Category::orderBy('MaCategory', 'desc')->paginate(3);
         return view('categories.index', compact('categories'));
     }
 

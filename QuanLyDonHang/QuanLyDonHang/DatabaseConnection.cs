@@ -151,6 +151,32 @@ namespace QuanLyDonHang
             return result;
         }
 
+        public object ExecuteScalar(string query, SqlParameter[] parameters = null)
+        {
+            object result = null;
+            try
+            {
+                if (OpenConnection())
+                {
+                    SqlCommand command = new SqlCommand(query, connection);
+                    if (parameters != null)
+                    {
+                        command.Parameters.AddRange(parameters);
+                    }
+                    result = command.ExecuteScalar();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi thực thi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                CloseConnection();
+            }
+            return result;
+        }
+
         public DataTable ExecuteStoredProcedure(string procedureName, SqlParameter[] parameters = null)
         {
             DataTable dataTable = new DataTable();

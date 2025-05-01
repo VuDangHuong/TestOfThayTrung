@@ -94,6 +94,10 @@
     </div>
 </form>
 
+<div class="d-flex justify-content-center mt-4">
+    {{ $products->links() }}
+</div>
+
 @section('scripts')
 <script>
     document.getElementById('select-all').onclick = function() {

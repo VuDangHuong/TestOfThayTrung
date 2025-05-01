@@ -93,6 +93,30 @@ namespace QuanLyDonHang
                 return;
             }
 
+            // Kiểm tra trùng tên nhóm hàng
+            try
+            {
+                string checkQuery = "SELECT COUNT(*) FROM Category WHERE Name = @Name";
+                SqlParameter[] checkParams = {
+                    new SqlParameter
+                    {
+                        ParameterName = "@Name",
+                        Value = txtName.Text
+                    }
+                };
+                int count = (int)DatabaseConnection.Instance.ExecuteScalar(checkQuery, checkParams);
+                if (count > 0)
+                {
+                    MessageBox.Show("Tên nhóm hàng đã tồn tại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi kiểm tra tên nhóm hàng: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             try
             {
                 string query = "INSERT INTO Category (Name) VALUES (@Name)";

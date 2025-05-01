@@ -16,7 +16,7 @@ class ProductController extends Controller
             $query->where('MaCategory', $request->category_id);
         }
         
-        $products = $query->orderBy('MaProduct', 'desc')->get();
+        $products = $query->orderBy('MaProduct', 'desc')->paginate(3);
         $categories = Category::all();
         
         return view('products.index', compact('products', 'categories'));

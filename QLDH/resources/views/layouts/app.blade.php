@@ -9,6 +9,17 @@
     <style>
         body { padding-top: 64px; }
         .navbar-brand { font-weight: bold; letter-spacing: 2px; }
+        .pagination { margin-bottom: 0; }
+        .pagination .page-link { color: #0d6efd; }
+        .pagination .page-item.active .page-link { 
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+            color: white;
+        }
+        /* Hide pagination text */
+        nav[aria-label="pagination"] > div:first-child {
+            display: none !important;
+        }
     </style>
 </head>
 <body>
@@ -19,7 +30,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav me-auto">
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('products.index') }}">Products</a>
                     </li>
@@ -27,14 +38,14 @@
                         <a class="nav-link" href="{{ route('categories.index') }}">Categories</a>
                     </li>
                 </ul>
+                
             </div>
         </div>
     </nav>
 
-    
-
+    <div class="container mt-4">
         @yield('content')
-    
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     @yield('scripts')

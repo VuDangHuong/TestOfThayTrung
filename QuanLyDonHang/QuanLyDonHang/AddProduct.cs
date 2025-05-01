@@ -232,6 +232,30 @@ namespace QuanLyDonHang
                 return;
             }
 
+            // Kiểm tra trùng tên sản phẩm
+            try
+            {
+                string checkQuery = "SELECT COUNT(*) FROM Product WHERE Name = @Name";
+                SqlParameter[] checkParams = {
+                    new SqlParameter
+                    {
+                        ParameterName = "@Name",
+                        Value = txtName.Text
+                    }
+                };
+                int count = (int)DatabaseConnection.Instance.ExecuteScalar(checkQuery, checkParams);
+                if (count > 0)
+                {
+                    MessageBox.Show("Tên sản phẩm đã tồn tại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi kiểm tra tên sản phẩm: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (!decimal.TryParse(txtPrice.Text, out decimal price))
             {
                 MessageBox.Show("Giá bán không hợp lệ!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
